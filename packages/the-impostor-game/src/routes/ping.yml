@@ -1,0 +1,76 @@
+parameters: []
+get:
+  summary: Test GET method
+  tags:
+    - Test
+  responses:
+    '200':
+      description: Get test
+    '400':
+      $ref: '#/components/responses/BadRequest'
+    '401':
+      $ref: '#/components/responses/Unauthorized'
+    '404':
+      $ref: '#/components/responses/NotFound'
+    '500':
+      $ref: '#/components/responses/ServerError'
+    '503':
+      $ref: '#/components/responses/ServiceUnavailable'
+post:
+  summary: Test POST method
+  tags:
+    - Test
+  responses:
+    '201':
+      description: Post test
+    '400':
+      $ref: '#/components/responses/BadRequest'
+    '401':
+      $ref: '#/components/responses/Unauthorized'
+    '404':
+      $ref: '#/components/responses/NotFound'
+    '500':
+      $ref: '#/components/responses/ServerError'
+    '503':
+      $ref: '#/components/responses/ServiceUnavailable'
+put:
+  summary: Update User
+  tags:
+    - Test
+  responses:
+    '200':
+      description: Put test (disabled)
+    '400':
+      $ref: '#/components/responses/BadRequest'
+    '401':
+      $ref: '#/components/responses/Unauthorized'
+    '404':
+      $ref: '#/components/responses/NotFound'
+    '409':
+      $ref: '#/components/responses/Conflict'
+    '500':
+      $ref: '#/components/responses/ServerError'
+    '503':
+      $ref: '#/components/responses/ServiceUnavailable'
+del:
+  summary: Delete User
+  tags:
+    - Test
+  parameters:
+    - in: header
+      name: authorization
+      schema:
+        type: string
+  responses:
+    '204':
+      description: Delete test
+    '400':
+      $ref: '#/components/responses/BadRequest'
+    '401':
+      $ref: '#/components/responses/Unauthorized'
+    '404':
+      $ref: '#/components/responses/NotFound'
+    '500':
+      $ref: '#/components/responses/ServerError'
+    '503':
+      $ref: '#/components/responses/ServiceUnavailable'

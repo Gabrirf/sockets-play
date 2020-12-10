@@ -1,0 +1,11 @@
+{
+  "name": "models",
+  "version": "0.0.0",
+  "description": "Models definitions",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.10.7"
+  }
+}
