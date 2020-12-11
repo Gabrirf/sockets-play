@@ -1,28 +1,24 @@
 const socketIo = require('socket.io');
 const { logger } = require('helpers');
 
-const socketIOEvents = require('../controllers/socketio-events');
-
-let io;
+const socketioEvents = require('../../controllers/socketio-events');
 
 function init(server) {
-  io = socketIo(server);
+  const io = socketIo(server);
 
   io.on('error', err => {
     throw err;
   });
 
   io.on('connection', socket => {
-    socketIOEvents(socket);
+    socketioEvents.init(socket);
     socket.on('disconnect', () => {
       logger.info(`${socket.handshake.address} has been disconnected`);
     });
     logger.info(`A user connected from: : ${socket.handshake.address}`);
   });
+  
+  return io;
 }
 
-function emit(event, data) {
-  io.emit(event, { data });
-}
-
-module.exports = { init, emit };
+module.exports = { init };

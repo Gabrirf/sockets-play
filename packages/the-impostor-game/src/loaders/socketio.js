@@ -1,5 +1,3 @@
-const socketIO = require('../services/socketio');
+const socketioService = require('../services/socketio');
 
-module.exports = server => {
-  socketIO.init(server);
-};
+module.exports = server => socketioService.initSocketIO(server);

@@ -3,29 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Minimal working example</title>
-</head>
-<body>
-    <ul id="events"></ul>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
     <script>
-        const $events = document.getElementById('events');
+      window.onload = init;
 
-        const newItem = (content) => {
+      let socket;
+
+      function init(params) {
+        
+        const $events = document.getElementById('events');
+        
+        const newItem = (data) => {
           const item = document.createElement('li');
-          item.innerText = content;
+          item.innerHTML = data.id ? `<button onclick="vote('${data.id}')">${data.name}</button>${data.alive}` : data;
           return item;
         };
-
-        const socket = io('ws://localhost:3000');
-
+        
+        socket = io('ws://localhost:3000');
+        
         socket.on('connect', () => {
           $events.appendChild(newItem('connect'));
+          
         });
-        socket.on('stats event', data => {
-          $events.appendChild(newItem(JSON.stringify(data)));
-          socket.emit('done')
+        socket.on('players', data => {
+          $events.innerHTML = '';
+          data.forEach(element => {
+            $events.appendChild(newItem(element));
+          });
         });
+
+        socket.on('role', data => {
+          $events.appendChild(newItem(data));
+        });
+
+      }
+
+      function join() {
+        const name = document.getElementById("name").value;
+        socket.emit('join', name);
+      }
+
+      function vote(socketId) {
+        socket.emit('vote', socketId);
+      }
+
+      function start() {
+        socket.emit('start');
+      }
+
+      function clearGame() {
+        socket.emit('clear');
+      }
     </script>
+</head>
+<body>
+    <input type="text" name="name" id="name"/>
+    <button onclick="join()">Join</button>
+    <button onclick="vote()">Vote</button>
+    <button onclick="start()">Start</button>
+    <button onclick="clearGame()">Clear</button>
+
+    <ul id="events"></ul>
+
 </body>
 </html>

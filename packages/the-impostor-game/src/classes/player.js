@@ -1,12 +1,13 @@
 class Player {
-  constructor(name, color) {
+  constructor(name, color, socket) {
     this.name = name;
     this.color = color;
+    this.id = socket;
+    this.role = 'crewmate';
     this.alive = true;
-    
   }
 
-  vote(){
+  vote(player){
     
   }
 
@@ -14,3 +15,5 @@ class Player {
     this.alive = false;
   }
 };
+
+module.exports = Player;
